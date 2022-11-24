@@ -11,8 +11,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Ventana ventana = new Ventana();
+		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 		
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventanaPrincipal.setVentanaPrincipal(ventanaPrincipal);
+		ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventanaPrincipal.setVisible(true);
 	}
 }

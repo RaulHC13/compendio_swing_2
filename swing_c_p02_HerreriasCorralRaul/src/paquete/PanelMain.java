@@ -11,9 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-/**
- * 
- */
 public class PanelMain extends JPanel {
 
 	public JButton btnAlta, btnBaja;
@@ -41,6 +38,5 @@ public class PanelMain extends JPanel {
 		
 		this.add(btnAlta);
 		this.add(btnBaja);
-		
 	}
 }

@@ -9,26 +9,32 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-public class Ventana extends JFrame{
+public class VentanaPrincipal extends JFrame{
 
+	private VentanaDialogo ventanaDialogo;
+	private VentanaPrincipal ventanaPrincipal;
 	private JMenuBar menu;
 	private JMenu archivo, registro, ayuda;
 	private JMenuItem salir, alta, baja, acercaDe;
 	private PanelMain panelMain;
 	private JButton copia1, copia2;
 	
-	public Ventana() {
+	public VentanaPrincipal() {
 		
 		inicializarVentana();
 		inicializarComponentes();
 		setListeners();
+		
 		
 		this.setVisible(true);
 	}
@@ -38,10 +44,19 @@ public class Ventana extends JFrame{
 		copia1 = panelMain.btnAlta;
 		copia2 = panelMain.btnBaja;
 		
-		copia1.addActionListener(e -> prueba());
-		copia2.addActionListener(e -> prueba());
+		//ALT Q PROVISIONAL
+		registro.setMnemonic(KeyEvent.VK_Q);
+		
+		copia1.setMnemonic(KeyEvent.VK_A);
+		copia1.addActionListener(e -> altaReservas());
+		
+		copia2.setMnemonic(KeyEvent.VK_B);
+		copia2.addActionListener(e -> bajaReservas());
 		
 		salir.addActionListener(e -> salir());
+		alta.addActionListener(e -> altaReservas());
+		baja.addActionListener(e -> bajaReservas());
+		acercaDe.addActionListener(e -> acercaDe());
 	}
 
 	private void inicializarVentana() {
@@ -63,6 +78,10 @@ public class Ventana extends JFrame{
 		
 		this.setResizable(false);
 		this.setIconImage(icono);
+	}
+	
+	public void setVentanaPrincipal(VentanaPrincipal ventana) {
+		ventanaPrincipal = ventana;
 	}
 	
 	private void inicializarComponentes() {
@@ -97,12 +116,23 @@ public class Ventana extends JFrame{
 		this.setJMenuBar(menu);
 	}
 	
-	private void prueba() {
+	private void bajaReservas() {
+		JOptionPane.showMessageDialog(this, "Esta opción aun está en desarrollo", 
+				"Baja reservas", JOptionPane.INFORMATION_MESSAGE);
 		
-		System.out.println("asdasd");
 	}
 	
 	private void salir() {
 		this.dispose();
+	}
+	
+	private void altaReservas() {
+		ventanaDialogo = new VentanaDialogo(this, true);
+		ventanaDialogo.setVisible(true);
+	}
+	
+	private void acercaDe() {
+		JOptionPane.showMessageDialog(this, "La empresarial empresa está empresariando.", 
+				"Acerca de", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
