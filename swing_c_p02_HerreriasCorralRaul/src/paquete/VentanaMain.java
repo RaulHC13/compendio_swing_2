@@ -19,22 +19,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-public class VentanaPrincipal extends JFrame{
+public class VentanaMain extends JFrame{
 
 	private VentanaDialogo ventanaDialogo;
-	private VentanaPrincipal ventanaPrincipal;
+	private VentanaMain ventanaPrincipal;
 	private JMenuBar menu;
 	private JMenu archivo, registro, ayuda;
 	private JMenuItem salir, alta, baja, acercaDe;
 	private PanelMain panelMain;
 	private JButton copia1, copia2;
 	
-	public VentanaPrincipal() {
+	public VentanaMain() {
 		
 		inicializarVentana();
 		inicializarComponentes();
 		setListeners();
-		
+//		altaReservas();
 		
 		this.setVisible(true);
 	}
@@ -45,7 +45,7 @@ public class VentanaPrincipal extends JFrame{
 		copia2 = panelMain.btnBaja;
 		
 		//ALT Q PROVISIONAL
-		registro.setMnemonic(KeyEvent.VK_Q);
+		registro.setMnemonic(KeyEvent.VK_R);
 		
 		copia1.setMnemonic(KeyEvent.VK_A);
 		copia1.addActionListener(e -> altaReservas());
@@ -76,11 +76,11 @@ public class VentanaPrincipal extends JFrame{
 		
 		Image icono = miPantalla.getImage(this.getClass().getResource("/recursos/icono.png"));
 		
-		this.setResizable(false);
+//		this.setResizable(false);
 		this.setIconImage(icono);
 	}
 	
-	public void setVentanaPrincipal(VentanaPrincipal ventana) {
+	public void setVentanaPrincipal(VentanaMain ventana) {
 		ventanaPrincipal = ventana;
 	}
 	
@@ -98,7 +98,6 @@ public class VentanaPrincipal extends JFrame{
 		acercaDe = new JMenuItem("Acerca de");
 		
 		panelMain = new PanelMain();
-		panelMain.setBackground(Color.RED);
 		
 		archivo.add(salir);
 		
@@ -132,7 +131,8 @@ public class VentanaPrincipal extends JFrame{
 	}
 	
 	private void acercaDe() {
-		JOptionPane.showMessageDialog(this, "La empresarial empresa está empresariando.", 
+		JOptionPane.showMessageDialog(this, "Aplicación para reservas Hotel La Rueda" + 
+	"\n© 2022 Raúl Herrerías Corral. All rights reserved.", 
 				"Acerca de", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+		VentanaMain ventanaPrincipal = new VentanaMain();
 		
 		ventanaPrincipal.setVentanaPrincipal(ventanaPrincipal);
 		ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

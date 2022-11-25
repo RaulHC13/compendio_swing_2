@@ -5,7 +5,13 @@
  */
 package paquete;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,28 +21,52 @@ public class PanelMain extends JPanel {
 
 	public JButton btnAlta, btnBaja;
 	private ImageIcon iconoAdd, iconoBaja;
-	
+	private GridBagLayout layout;
+	private GridBagConstraints constraints;
+
 	public PanelMain() {
-		
-		this.setLayout(null);
+
+		layout = new GridBagLayout();
+		this.setLayout(layout);
+		constraints = new GridBagConstraints();
 		
 		iconoAdd = new ImageIcon(this.getClass().getResource("/recursos/iconoAlta.png"));
-		Image imagen = iconoAdd.getImage().getScaledInstance(170, 180, ABORT);
+		Image imagen = iconoAdd.getImage().getScaledInstance(180, 180, ABORT);
 		iconoAdd.setImage(imagen);
 
 		iconoBaja = new ImageIcon(this.getClass().getResource("/recursos/iconoBaja.png"));
-		Image imagen2 = iconoBaja.getImage().getScaledInstance(200, 290, ABORT);
+		Image imagen2 = iconoBaja.getImage().getScaledInstance(190, 190, ABORT);
 		iconoBaja.setImage(imagen2);
-		
+
 		btnAlta = new JButton("Alta reserva");
 		btnBaja = new JButton("Baja reserva");
 		btnAlta.setIcon(iconoAdd);
 		btnBaja.setIcon(iconoBaja);
-	
-		btnAlta.setBounds(100,120,340,220);
-		btnBaja.setBounds(500,120,340,220);
 		
-		this.add(btnAlta);
-		this.add(btnBaja);
+		Color fondo = new Color(197,224,220);
+		
+		this.setBackground(fondo);
+		
+		constraints.insets = (new Insets(0,60,0,60));
+		add(btnAlta, 0,0,1,1);
+		
+		add(btnBaja, 1,0,1,1);
+
+		btnAlta.setBackground(null);
+		btnAlta.setBorder(null);
+		
+		btnBaja.setBackground(null);
+		btnBaja.setBorder(null);
+		
 	}
+	
+	private void add(Component componente,int columna, int fila, int ancho,
+			int alto) {
+			constraints.gridx = columna;
+			constraints.gridy = fila;
+			constraints.gridwidth = ancho;
+			constraints.gridheight = alto;
+			layout.setConstraints(componente, constraints);
+			this.add(componente);
+			} 
 }
