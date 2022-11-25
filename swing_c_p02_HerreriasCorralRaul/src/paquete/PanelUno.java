@@ -7,6 +7,8 @@ package paquete;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -17,14 +19,16 @@ import javax.swing.border.Border;
 public class PanelUno extends JPanel {
 	
 	private JLabel nombre;
-	private BoxLayout layout;
+	private GridBagLayout layout;
 
 	public PanelUno() {
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		layout = new GridBagLayout();
+		this.setLayout(layout);
+		this.setBackground(new Color(236,229,206));
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 4, true);
-		Color fondo = new Color(241, 212, 175);
+		Color fondo = new Color(224, 142, 121);
 		
 		Font fuente = new Font("Lato Black", Font.PLAIN, 60);
 		Color color = new Color(53,92,140);

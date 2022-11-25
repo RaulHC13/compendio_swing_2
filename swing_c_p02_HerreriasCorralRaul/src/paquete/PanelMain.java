@@ -8,6 +8,7 @@ package paquete;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -29,6 +30,7 @@ public class PanelMain extends JPanel {
 		layout = new GridBagLayout();
 		this.setLayout(layout);
 		constraints = new GridBagConstraints();
+		Font fuente = new Font("", Font.BOLD, 22);
 		
 		iconoAdd = new ImageIcon(this.getClass().getResource("/recursos/iconoAlta.png"));
 		Image imagen = iconoAdd.getImage().getScaledInstance(180, 180, ABORT);
@@ -38,8 +40,10 @@ public class PanelMain extends JPanel {
 		Image imagen2 = iconoBaja.getImage().getScaledInstance(190, 190, ABORT);
 		iconoBaja.setImage(imagen2);
 
-		btnAlta = new JButton("Alta reserva");
-		btnBaja = new JButton("Baja reserva");
+		btnAlta = new JButton("    Alta reserva");
+		btnBaja = new JButton("    Baja reserva");
+		btnAlta.setFont(fuente);
+		btnBaja.setFont(fuente);
 		btnAlta.setIcon(iconoAdd);
 		btnBaja.setIcon(iconoBaja);
 		

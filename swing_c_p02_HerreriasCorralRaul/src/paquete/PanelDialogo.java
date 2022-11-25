@@ -10,21 +10,35 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 
 public class PanelDialogo extends JPanel{
 	
-	private PanelUno panelUno;
 	private JPanel panel1, panel2, panel3, panel4;
+	private PanelUno panelUno;
+	private PanelCentro panelCentro;
+	private PanelLateral panelLateral;
+	private JToggleButton copia1, copia2, copia3;
 	
 	public PanelDialogo() {
 		
 		this.setLayout(new BorderLayout());
 		
 		panelUno = new PanelUno();
+		panelCentro = new PanelCentro();
+		panelLateral = new PanelLateral();
+		
+		copia1 = panelLateral.btn1;
+		copia1.addActionListener(e -> visibilidadPanel2());
+		
+		copia2 = panelLateral.btn2;
+		copia2.addActionListener(e -> comprobarCampos());
+		
+		copia3 = panelLateral.btn3;
+		copia3.addActionListener(e -> borrarTodo());
 		
 		Border border1 = BorderFactory.createLineBorder(Color.RED, 4, true);
-		Border border2 = BorderFactory.createLineBorder(Color.GREEN, 4, true);
 		Border border3 = BorderFactory.createLineBorder(Color.BLUE, 4, true);
 		Border border4 = BorderFactory.createLineBorder(Color.PINK, 4, true);
 		
@@ -33,15 +47,31 @@ public class PanelDialogo extends JPanel{
 		panel3 = new JPanel();
 		panel4 = new JPanel();
 		
-		panel1.setBorder(border1);
-		panel3.setBorder(border3);
+		panelCentro.setBorder(border1);
+		panelLateral.setBorder(border3);
 		panel4.setBorder(border4);
 		
 		this.add(panelUno, BorderLayout.NORTH);
 		
-		this.add(panel1, BorderLayout.CENTER);
-		this.add(panel3, BorderLayout.WEST);
+		this.add(panelCentro, BorderLayout.CENTER);
+		
+		this.add(panelLateral, BorderLayout.WEST);
 		this.add(panel4, BorderLayout.SOUTH);
 	}
+
+	private void visibilidadPanel2() {
+		if (copia1.isSelected()) {
+			panelCentro.panelDos.setVisible(false);
+		} else {
+			panelCentro.panelDos.setVisible(true);
+		}
+	}
 	
+	private boolean comprobarCampos() {
+		return panelCentro.panelDos.comprobarCampos();
+	}
+	
+	private void borrarTodo() {
+		panelCentro.panelDos.borrarTodo();
+	}
 }

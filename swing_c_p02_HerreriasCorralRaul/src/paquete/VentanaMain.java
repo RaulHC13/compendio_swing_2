@@ -61,7 +61,7 @@ public class VentanaMain extends JFrame{
 
 	private void inicializarVentana() {
 		
-		this.setTitle("Gestion de hotel ---- Herrerias Corral Raul");
+		this.setTitle("Gestion de hotel ---- Hotel La Rueda");
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
