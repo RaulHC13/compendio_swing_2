@@ -10,16 +10,13 @@ import javax.swing.JPanel;
 
 public class VentanaDialogo extends JDialog{
 	
-	private JPanel panelDialogo;
-	private JLabel label1, label2;
-	private PanelUno panelUno;
+	private PanelDialogo panelDialogo;
 	private int anchoPantalla;
 
 	public VentanaDialogo(VentanaMain ventana, boolean modal) {
 		super(ventana, modal);
 		
 		iniciarVentana();
-		iniciarComponentes();
 	}
 
 	private void iniciarVentana( ) {
@@ -32,32 +29,12 @@ public class VentanaDialogo extends JDialog{
 		
 		Image icono = miPantalla.getImage(this.getClass().getResource("/recursos/icono.png"));
 		
+		panelDialogo = new PanelDialogo();
+		
 		this.setSize(anchoPantalla,altoPantalla);
 		this.setTitle("Alta Reservas");
 		this.setIconImage(icono);
+		this.add(panelDialogo);
 	}
 	
-	private void iniciarComponentes() {
-		
-		panelDialogo = new JPanel();
-		panelDialogo.setLayout(null);
-		
-		inicializarPanelUno();
-		
-		label1 = new JLabel("asd");
-		label2 = new JLabel("asdasd");
-		
-		label1.setBounds(200,200,200,200);
-		panelDialogo.add(panelUno);
-		panelDialogo.add(label1);
-		
-		add(panelDialogo);
-		panelDialogo.setVisible(true);
-	}
-	
-	private void inicializarPanelUno() {
-		
-		panelUno = new PanelUno();
-		panelUno.setBounds(0,0,anchoPantalla, 100);
-	}
 }
