@@ -38,6 +38,7 @@ public class PanelTres extends JPanel{
 	
 	private PanelNiños panelNiños;
 	private PanelImagenes panelImagenes;
+	private int precioHabitacion, precioTotal;
 	
 	public PanelTres() {
 		
@@ -108,7 +109,7 @@ public class PanelTres extends JPanel{
 	public void calcularImporte(int numDias) {
 		
 		String tipo = tipoHabitacion.getSelectedItem().toString();
-		int precioUnidad = 0, numHabitaciones = 0, precioTotal = 0;
+		int precioUnidad = 0;
 		
 		switch (tipo) {
 		
@@ -124,12 +125,15 @@ public class PanelTres extends JPanel{
 		}
 		
 		if (panelNiños.isVisible()) precioUnidad += 20;
+		 precioHabitacion = precioUnidad * numDias;
+		 int numHabitaciones = (int) spinnerHabitaciones.getValue();
+		 precioTotal = precioHabitacion * numHabitaciones;
 		
-		precioUnidad = precioUnidad * numDias;
-		numHabitaciones = (int) spinnerHabitaciones.getValue();
-		precioTotal = precioUnidad * numHabitaciones;
+	}
+	
+	public void setImporte() {
 		
-		TAimporte.setText(String.valueOf(precioUnidad + "€ por habitación, Total: " + precioTotal + "€"));
+		TAimporte.setText(String.valueOf(precioHabitacion + "€ por habitación, Total: " + precioTotal + "€"));
 	}
 	
 	private void add(Component componente,int columna, int fila, int ancho,
@@ -156,6 +160,67 @@ public class PanelTres extends JPanel{
 	
 	public void cambiarImagen() {
 		panelImagenes.cambiarImagen();
+	}
+	
+	public boolean camposValidos() {
+		
+		boolean numHabitaciones = (int) spinnerHabitaciones.getValue() > 0 && 
+								  (int) spinnerHabitaciones.getValue() <= 50;
+		
+		boolean edadNiños = (int) spinnerEdad.getValue() >= 0 &&
+							(int) spinnerEdad.getValue() <= 14;
+		
+		return (numHabitaciones && edadNiños);
+	}
+
+	public String getInfoHabitacion() {
+		
+		if (camposValidos()) {
+			
+			String tipo = tipoHabitacion.getSelectedItem().toString();
+			int numHabitaciones = (int) spinnerHabitaciones.getValue();
+			
+			
+			
+			String niño = CB.isSelected() ? "Si" : "No";
+			String extra = ""; 
+			
+			if (CB.isSelected()) {
+				int edad = (int) spinnerEdad.getValue();
+				if (edad <= 3) {
+					extra = "Cuna";
+				}
+				
+				if (edad >= 4 && edad <= 10) {
+					extra = "Cama supletoria pequeña";
+				}
+				
+				if (edad >= 11 && edad <= 14) {
+					extra = "Cama supletoria normal";
+				}
+			} else {
+				extra = "No se han solicitado";
+			}
+			
+			String info = String.format("Tipo de habitación: %s"
+					+ "\nNúmero de habitaciones reservadas: %d\nNiños: %s"
+					+ "\nExtras: %s\nPrecio por habitación: %d€\nImporte total: %d€", 
+					tipo, numHabitaciones, niño, extra, precioHabitacion, precioTotal);
+			
+			return info;
+			
+		} else {
+			return "";
+		}
+	}
+	
+	public void borrarTodo() {
+		tipoHabitacion.setSelectedIndex(0);
+		spinnerHabitaciones.setValue((int) 0);
+		CB.setSelected(false);
+		spinnerEdad.setValue((int) 0);
+		TAimporte.setText("");
+		TAextras.setText("");
 	}
 	
 	class PanelNiños extends JPanel{
@@ -217,7 +282,6 @@ public class PanelTres extends JPanel{
 				TAextras.setText("Cama supletoria normal");
 			}
 		}
-		
 	}
 	
 	class PanelImagenes extends JPanel {

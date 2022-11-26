@@ -14,25 +14,24 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 
 public class PanelDialogo extends JPanel implements FocusListener{
 	
-	private JPanel panel4;
 	private PanelUno panelUno;
 	private PanelCentro panelCentro;
-	private PanelLateral panelLateral;
+	private PanelInferior panelInferior;
 	
 	private JTextField tfFechaEntrada, tfFechaSalida;
 	private JTextArea TAextra, TAimporte;
-	private JToggleButton copia1, copia2, copia3;
+	private JButton btnImprimir, btnNuevo, btnGuardar;
 	private JCheckBox CBcopia;
 	private JComboBox<String> tipoHabitacionCopia;
 	
@@ -42,16 +41,13 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		
 		panelUno = new PanelUno();
 		panelCentro = new PanelCentro();
-		panelLateral = new PanelLateral();
+		panelInferior = new PanelInferior();
 		
 		tfFechaEntrada = panelCentro.panelDos.tfFechaE;
 		tfFechaEntrada.addActionListener(e -> actualizarFecha());
 		
 		tfFechaSalida = panelCentro.panelDos.tfFechaS;
 		tfFechaSalida.addActionListener(e -> actualizarFecha());
-		
-		copia3 = panelLateral.btn3;
-		copia3.addActionListener(e -> borrarTodo());
 		
 		CBcopia = panelCentro.panelTres.CB;
 		CBcopia.addChangeListener(e -> visibilidadNiños());
@@ -65,20 +61,24 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		tipoHabitacionCopia = panelCentro.panelTres.tipoHabitacion;
 		tipoHabitacionCopia.addActionListener(e -> cambiarImagen());
 		
+		btnImprimir = panelInferior.btn1;
+		btnImprimir.addActionListener(e -> setInfo());
+		
+		btnNuevo = panelInferior.btn2;
+		btnNuevo.addActionListener(e -> reiniciarTodo());
+		
+		btnGuardar = panelInferior.btn3;
+		btnGuardar.addActionListener(e -> guardar());
+		
 		Border border1 = BorderFactory.createLineBorder(Color.RED, 4, true);
 		Border border3 = BorderFactory.createLineBorder(Color.BLUE, 4, true);
-		Border border4 = BorderFactory.createLineBorder(Color.PINK, 4, true);
-		
-		panel4 = new JPanel();
 		
 		panelCentro.setBorder(border1);
-		panelLateral.setBorder(border3);
-		panel4.setBorder(border4);
+		panelInferior.setBorder(border3);
 		
 		this.add(panelUno, BorderLayout.NORTH);
 		this.add(panelCentro, BorderLayout.CENTER);
-		this.add(panelLateral, BorderLayout.WEST);
-		this.add(panel4, BorderLayout.SOUTH);
+		this.add(panelInferior, BorderLayout.SOUTH);
 	}
 	
 	private void actualizarFecha() {
@@ -110,20 +110,11 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		}
 	}
 
-	private void visibilidadPanel2() {
-		
-		if (copia1.isSelected()) {
-			panelCentro.esconderDos();
-		} else {
-			panelCentro.mostrarDos();
-		}
-	}
-	
 	private void visibilidadNiños() {
 		if (CBcopia.isSelected()) {
-			panelCentro.mostrarNiños();
+			panelCentro.panelTres.mostrarPanel();
 		} else {
-			panelCentro.esconderNiños();
+			panelCentro.panelTres.esconderPanel();
 		}
 	}
 	
@@ -131,21 +122,52 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		panelCentro.panelTres.editarExtras();
 	}
 	
-	private boolean comprobarCampos() {
-		return panelCentro.panelDos.comprobarCampos();
+	private void guardar() {
+		if (panelCentro.panelDos.camposValidos() && panelCentro.panelTres.camposValidos()) {
+			JOptionPane.showMessageDialog(this, "Registro guardado", 
+			   "Guardar", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "No se han cumplimentado "
+					+ "todos los campos correctamente\nNo se ha podido guardar el registro", 
+			   "Guardar", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
-	private void borrarTodo() {
+	private void reiniciarTodo() {
 		panelCentro.panelDos.borrarTodo();
+		panelCentro.panelTres.borrarTodo();
+		panelCentro.panelCuatro.borrarInfoCliente();
+		panelCentro.panelCuatro.borrarInfoHabitacion();
 	}
 	
 	private void calcularImporte() {
 		int dias = panelCentro.panelDos.getDias();
 		panelCentro.panelTres.calcularImporte(dias);
+		panelCentro.panelTres.setImporte();
 	}
 	
 	private void cambiarImagen() {
 		panelCentro.panelTres.cambiarImagen();
+	}
+	
+	private void setInfo() {
+		
+		String infoCliente = panelCentro.panelDos.getInfoCliente();
+	
+		int dias = panelCentro.panelDos.getDias();
+		panelCentro.panelTres.calcularImporte(dias);
+		String infoHabitacion = panelCentro.panelTres.getInfoHabitacion();
+		
+		if (infoCliente == "" || infoHabitacion == "") {
+			JOptionPane.showMessageDialog(this, "No se han cumplimentado "
+					+ "todos los campos correctamente", 
+					"Error al imprimir", JOptionPane.WARNING_MESSAGE);
+		} else {
+			
+		panelCentro.panelCuatro.setInfoCliente(infoCliente);
+		panelCentro.panelCuatro.setInfoHabitacion(infoHabitacion);
+		
+		}
 	}
 
 	@Override
@@ -159,6 +181,6 @@ public class PanelDialogo extends JPanel implements FocusListener{
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		
+
 	}
 }

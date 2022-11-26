@@ -20,8 +20,10 @@ public class PanelCentro extends JPanel {
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
 	private JLabel label1, label2;
+	
 	public PanelDos panelDos;
 	public PanelTres panelTres;
+	public PanelCuatro panelCuatro;
 	
 	public PanelCentro() {
 		
@@ -40,21 +42,25 @@ public class PanelCentro extends JPanel {
 		label1.setFont(fuente);
 		label1.setForeground(new Color(85,98,112));
 		constraints.insets = new Insets(10,40,0,0);
-		this.add(label1,0,0,1,2);
+		this.add(label1,0,0,1,1);
 		
 		panelDos = new PanelDos();
 		constraints.insets = new Insets(40,40,0,0);
-		this.add(panelDos, 0,1,1,1);
+		this.add(panelDos, 0,0,1,1);
 		
 		label2 = new JLabel("Datos reserva");
 		label2.setFont(fuente);
 		label2.setForeground(new Color(85,98,112));
 		constraints.insets = new Insets(10,40,0,0);
-		this.add(label2,0,2,1,2);
+		this.add(label2,0,1,1,1);
 		
 		panelTres = new PanelTres();
 		constraints.insets = new Insets(40,40,100,0);
-		this.add(panelTres, 0,3,1,1);
+		this.add(panelTres, 0,1,1,1);
+		
+		panelCuatro = new PanelCuatro();
+		constraints.insets = new Insets(40,40,100,0);
+		this.add(panelCuatro,1,0,1,1);
 		
 	}
 	
@@ -67,22 +73,4 @@ public class PanelCentro extends JPanel {
 			layout.setConstraints(componente, constraints);
 			this.add(componente);
 		}
-	
-	public void esconderDos() {
-		label1.setVisible(false);
-		panelDos.setVisible(false);
-	}
-	
-	public void mostrarDos() {
-		label1.setVisible(true);
-		panelDos.setVisible(true);
-	}
-	
-	public void esconderNiños() {
-		panelTres.esconderPanel();
-	}
-	
-	public void mostrarNiños() {
-		panelTres.mostrarPanel();
-	}
 }

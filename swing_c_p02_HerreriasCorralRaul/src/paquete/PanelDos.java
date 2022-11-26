@@ -19,6 +19,7 @@ import java.time.temporal.ChronoUnit;
 import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -160,14 +161,9 @@ public class PanelDos extends JPanel{
 		tfDias.setText(String.valueOf(diasDiferencia));
 	}
 	
-	public boolean comprobarCampos() {
-		
-		boolean nombre = !tfNombre.getText().trim().isEmpty();
-		boolean apellidos = !tfApellido.getText().trim().isEmpty();
-		boolean dni = tfDNI.getText().trim().length() == 9;
-		boolean telefono = tfTelefono.getText().trim().length() == 9;
-		
-		return (nombre && apellidos && dni && telefono);
+	
+	public int getDias() {
+		return Integer.parseInt(tfDias.getText());
 	}
 	
 	public void borrarTodo() {
@@ -180,7 +176,37 @@ public class PanelDos extends JPanel{
 		setFechas();
 	}
 	
-	public int getDias() {
-		return Integer.parseInt(tfDias.getText());
+	public boolean camposValidos() {
+		
+		boolean nombre = !tfNombre.getText().trim().isEmpty();
+		boolean apellidos = !tfApellido.getText().trim().isEmpty();
+		boolean dni = tfDNI.getText().trim().length() == 9;
+		boolean telefono = tfTelefono.getText().trim().length() == 9;
+		
+		return (nombre && apellidos && dni && telefono);
+	}
+
+	public String getInfoCliente() {
+		
+		if (camposValidos()) {
+			
+			String nombre = tfNombre.getText().toString().trim();
+			String apellidos = tfApellido.getText().toString().trim();
+			String dni = tfDNI.getText().toString();
+			String telefono = tfTelefono.getText().trim();
+			String fechaEntrada = tfFechaE.getText().toString().trim();
+			String fechaSalida = tfFechaS.getText().toString().trim();
+			int numDias = getDias();
+			
+			String resultado = String.format("Nombre: %s\nApellidos: %s"
+					+ "\nDNI: %s\nNº Telefono: %s\nFecha de entrada: %s"
+					+ "\nFecha de salida: %s\nDias de estancia total: %d" 
+					,nombre,apellidos,dni,telefono,fechaEntrada,fechaSalida,numDias);
+			
+			return resultado;
+			
+		} else {
+			return "";
+		}
 	}
 }
