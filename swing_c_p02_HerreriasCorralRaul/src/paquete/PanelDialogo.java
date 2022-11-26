@@ -11,9 +11,11 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -32,7 +34,7 @@ public class PanelDialogo extends JPanel implements FocusListener{
 	private JTextArea TAextra, TAimporte;
 	private JToggleButton copia1, copia2, copia3;
 	private JCheckBox CBcopia;
-	private JSpinner SPcopia;
+	private JComboBox<String> tipoHabitacionCopia;
 	
 	public PanelDialogo() {
 		
@@ -48,12 +50,6 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		tfFechaSalida = panelCentro.panelDos.tfFechaS;
 		tfFechaSalida.addActionListener(e -> actualizarFecha());
 		
-		copia1 = panelLateral.btn1;
-		copia1.addActionListener(e -> visibilidadPanel2());
-		
-		copia2 = panelLateral.btn2;
-//		copia2.addActionListener(e -> visibilidadNiños());
-		
 		copia3 = panelLateral.btn3;
 		copia3.addActionListener(e -> borrarTodo());
 		
@@ -66,6 +62,9 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		TAimporte = panelCentro.panelTres.TAimporte;
 		TAimporte.addFocusListener(this);
 		
+		tipoHabitacionCopia = panelCentro.panelTres.tipoHabitacion;
+		tipoHabitacionCopia.addActionListener(e -> cambiarImagen());
+		
 		Border border1 = BorderFactory.createLineBorder(Color.RED, 4, true);
 		Border border3 = BorderFactory.createLineBorder(Color.BLUE, 4, true);
 		Border border4 = BorderFactory.createLineBorder(Color.PINK, 4, true);
@@ -77,30 +76,38 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		panel4.setBorder(border4);
 		
 		this.add(panelUno, BorderLayout.NORTH);
-		
 		this.add(panelCentro, BorderLayout.CENTER);
-		
 		this.add(panelLateral, BorderLayout.WEST);
 		this.add(panel4, BorderLayout.SOUTH);
 	}
 	
 	private void actualizarFecha() {
 		
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate fechaEntrada = LocalDate.parse(tfFechaEntrada.getText(),formato);
-		LocalDate fechaSalida = LocalDate.parse(tfFechaSalida.getText(),formato);
-		
+		DateTimeFormatter formato;
+		LocalDate fechaEntrada;
+		LocalDate fechaSalida;
 		LocalDate hoy = LocalDate.now();
 		LocalDate mañana = hoy.plusDays(1);
+		formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		if (fechaEntrada.isBefore(fechaSalida)) {
-			panelCentro.panelDos.actualizarFecha();
-		} else {
+		try {
+			
+			fechaEntrada = LocalDate.parse(tfFechaEntrada.getText(),formato);
+			fechaSalida = LocalDate.parse(tfFechaSalida.getText(),formato);
+			
+			if (fechaEntrada.isBefore(fechaSalida)) {
+				panelCentro.panelDos.actualizarFecha();
+			} else {
+				panelCentro.panelDos.tfFechaE.setText((hoy.format(formato)).toString());
+				panelCentro.panelDos.tfFechaS.setText((mañana.format(formato)).toString());
+				panelCentro.panelDos.actualizarFecha();
+			}
+			
+		} catch (DateTimeParseException e) {
 			panelCentro.panelDos.tfFechaE.setText((hoy.format(formato)).toString());
 			panelCentro.panelDos.tfFechaS.setText((mañana.format(formato)).toString());
 			panelCentro.panelDos.actualizarFecha();
 		}
-		
 	}
 
 	private void visibilidadPanel2() {
@@ -135,6 +142,10 @@ public class PanelDialogo extends JPanel implements FocusListener{
 	private void calcularImporte() {
 		int dias = panelCentro.panelDos.getDias();
 		panelCentro.panelTres.calcularImporte(dias);
+	}
+	
+	private void cambiarImagen() {
+		panelCentro.panelTres.cambiarImagen();
 	}
 
 	@Override
