@@ -14,6 +14,7 @@ import java.awt.Insets;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
@@ -29,8 +30,10 @@ public class PanelDos extends JPanel{
 	private GridBagConstraints constraints;
 	private JLabel labelNombre, labelApellidos, labelDNI, labelTelefono,
 				   labelFechaE, labelFechaS, labelDias;
-	private JTextField tfNombre, tfApellido, tfFechaE, tfFechaS, tfDias;
+	private JTextField tfNombre, tfApellido, tfDias;
 	private JFormattedTextField tfTelefono, tfDNI;
+	
+	public JTextField tfFechaE, tfFechaS;
 	
 	public PanelDos() {
 		
@@ -49,24 +52,27 @@ public class PanelDos extends JPanel{
 						4, 4, 4, true);
 		this.setBorder(border);
 		
-		Font fuente = new Font("", Font.BOLD, 16);
+		Font fuente = new Font("Lato Black", Font.PLAIN, 16);
 		
 		constraints.insets = new Insets(10,10,10,10);
 		
 		labelNombre = new JLabel("Nombre");
 		labelNombre.setFont(fuente);
+		labelNombre.setForeground(new Color(85,98,112));
 		this.add(labelNombre,0,0,1,1);
 		tfNombre = new JTextField("", 10);
 		this.add(tfNombre,1,0,1,1);
 		
 		labelApellidos = new JLabel("Apellidos");
 		labelApellidos.setFont(fuente);
+		labelApellidos.setForeground(new Color(85,98,112));
 		this.add(labelApellidos, 0,1,1,1);
 		tfApellido = new JTextField("", 10);
 		this.add(tfApellido,1,1,1,1);
 		
 		labelDNI = new JLabel("DNI");
 		labelDNI.setFont(fuente);
+		labelDNI.setForeground(new Color(85,98,112));
 		this.add(labelDNI, 0,2,1,1);
 		try {
 			MaskFormatter mascaraDNI = new MaskFormatter("########U");
@@ -80,6 +86,7 @@ public class PanelDos extends JPanel{
 		
 		labelTelefono = new JLabel("Nº Telefono");
 		labelTelefono.setFont(fuente);
+		labelTelefono.setForeground(new Color(85,98,112));
 		this.add(labelTelefono, 0,3,1,1);
 		try {
 			MaskFormatter mascaraTF = new MaskFormatter("#########");
@@ -93,22 +100,24 @@ public class PanelDos extends JPanel{
 		
 		labelFechaE = new JLabel("Fecha de entrada");
 		labelFechaE.setFont(fuente);
+		labelFechaE.setForeground(new Color(85,98,112));
 		this.add(labelFechaE, 0,4,1,1);
 		tfFechaE = new JTextField();
-		tfFechaE.setEditable(false);
 		this.add(tfFechaE, 1,4,1,1);
 		
 		labelFechaS = new JLabel("Fecha de salida");
 		labelFechaS.setFont(fuente);
+		labelFechaS.setForeground(new Color(85,98,112));
 		this.add(labelFechaS, 4,0,1,1);
 		tfFechaS = new JTextField();
-		tfFechaS.setEditable(false);
 		this.add(tfFechaS,5,0,1,1);
 		
 		labelDias = new JLabel("Dias de estancia");
 		labelDias.setFont(fuente);
+		labelDias.setForeground(new Color(85,98,112));
 		this.add(labelDias, 4,1,1,1); 
-		tfDias = new JTextField();
+		
+		tfDias = new JTextField(2);
 		tfDias.setEditable(false);
 		this.add(tfDias,5,1,1,1);
 		
@@ -128,16 +137,27 @@ public class PanelDos extends JPanel{
 		
 		LocalDate fechaEntrada = LocalDate.now();
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				
 		tfFechaE.setText(fechaEntrada.format(formato).toString());
 		
 		LocalDate fechaSalida = fechaEntrada.plusDays(1);
 		tfFechaS.setText(fechaSalida.format(formato).toString());
 		
-		int diaEntrada = fechaEntrada.getDayOfYear();
-		int diaSalida = fechaSalida.getDayOfYear();
-		int numDias = diaSalida - diaEntrada;
+		long diasDiferencia = ChronoUnit.DAYS.between
+				(fechaEntrada, fechaSalida);
 		
-		tfDias.setText(String.valueOf(numDias));
+		tfDias.setText(String.valueOf(diasDiferencia));
+	}
+	
+	public void actualizarFecha() {
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate fechaEntrada = LocalDate.parse(tfFechaE.getText(),formato);
+		LocalDate fechaSalida = LocalDate.parse(tfFechaS.getText(),formato);
+		
+		long diasDiferencia = ChronoUnit.DAYS.between
+				(fechaEntrada, fechaSalida);
+		
+		tfDias.setText(String.valueOf(diasDiferencia));
 	}
 	
 	public boolean comprobarCampos() {
@@ -158,5 +178,9 @@ public class PanelDos extends JPanel{
 		tfTelefono.setText("");
 		
 		setFechas();
+	}
+	
+	public int getDias() {
+		return Integer.parseInt(tfDias.getText());
 	}
 }

@@ -34,7 +34,7 @@ public class VentanaMain extends JFrame{
 		inicializarVentana();
 		inicializarComponentes();
 		setListeners();
-//		altaReservas();
+		altaReservas();
 		
 		this.setVisible(true);
 	}

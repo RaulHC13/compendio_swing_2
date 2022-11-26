@@ -7,6 +7,7 @@ package paquete;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,6 +21,7 @@ public class PanelCentro extends JPanel {
 	private GridBagConstraints constraints;
 	private JLabel label1, label2;
 	public PanelDos panelDos;
+	public PanelTres panelTres;
 	
 	public PanelCentro() {
 		
@@ -27,18 +29,32 @@ public class PanelCentro extends JPanel {
 		this.setLayout(layout);
 		this.setBackground(new Color(236,229,206));
 		
+		Font fuente = new Font("Lato Black", Font.BOLD, 24);
+		
 		constraints = new GridBagConstraints();
-		
-		label1 = new JLabel("asd");
-		label2 = new JLabel("WWW");
-		
-		panelDos = new PanelDos();
-		
 		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		constraints.weightx = 1;
 		constraints.weighty = 1;
+		
+		label1 = new JLabel("Datos personales");
+		label1.setFont(fuente);
+		label1.setForeground(new Color(85,98,112));
+		constraints.insets = new Insets(10,40,0,0);
+		this.add(label1,0,0,1,2);
+		
+		panelDos = new PanelDos();
 		constraints.insets = new Insets(40,40,0,0);
-		this.add(panelDos, 1,1,4,4);
+		this.add(panelDos, 0,1,1,1);
+		
+		label2 = new JLabel("Datos reserva");
+		label2.setFont(fuente);
+		label2.setForeground(new Color(85,98,112));
+		constraints.insets = new Insets(10,40,0,0);
+		this.add(label2,0,2,1,2);
+		
+		panelTres = new PanelTres();
+		constraints.insets = new Insets(40,40,100,0);
+		this.add(panelTres, 0,3,1,1);
 		
 	}
 	
@@ -50,5 +66,23 @@ public class PanelCentro extends JPanel {
 			constraints.gridheight = alto;
 			layout.setConstraints(componente, constraints);
 			this.add(componente);
-		} 
+		}
+	
+	public void esconderDos() {
+		label1.setVisible(false);
+		panelDos.setVisible(false);
+	}
+	
+	public void mostrarDos() {
+		label1.setVisible(true);
+		panelDos.setVisible(true);
+	}
+	
+	public void esconderNiños() {
+		panelTres.esconderPanel();
+	}
+	
+	public void mostrarNiños() {
+		panelTres.mostrarPanel();
+	}
 }
