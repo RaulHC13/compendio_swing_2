@@ -57,20 +57,24 @@ public class PanelTres extends JPanel{
 				4, 4, 4, true);
 		this.setBorder(border);
 		
-		Font fuente = new Font("Lato Black", Font.PLAIN, 16);
+		Font fuente = new Font("Lato Black", Font.PLAIN, 18);
+		Color color = new Color(122,179,23);
 		
 		labelTipo = new JLabel("Tipo de habitación");
 		labelTipo.setFont(fuente);
+		labelTipo.setForeground(color);
 		constraints.insets = new Insets(20,20,20,0);
 		add(labelTipo,0,0,1,1);
 		
 		String[] arrayTipos = new String[]{"Simple","Doble","Suite"};
 		tipoHabitacion = new JComboBox<>(arrayTipos);
+		tipoHabitacion.setForeground(color);
 		constraints.insets = new Insets(20,20,20,20);
 		add(tipoHabitacion, 1,0,1,1);
 	
 		labelNum = new JLabel("Nº de habitaciones");
 		labelNum.setFont(fuente);
+		labelNum.setForeground(color);
 		constraints.insets = new Insets(20,20,20,0);
 		add(labelNum,0,1,1,1);
 		
@@ -83,11 +87,13 @@ public class PanelTres extends JPanel{
 		CB = new JCheckBox("¿Niños?");
 		CB.setFont(fuente);
 		CB.setBackground(new Color(241,212,175));
+		CB.setForeground(color);
 		constraints.insets = new Insets(10,0,10,0);
 		add(CB,0,2,2,1);
 		
 		labelImporte = new JLabel("Importe habitación");
 		labelImporte.setFont(fuente);
+		labelImporte.setForeground(color);
 		constraints.insets = new Insets(10,0,10,10);
 		add(labelImporte,2,1,1,1);
 		
@@ -100,8 +106,9 @@ public class PanelTres extends JPanel{
 		
 		panelImagenes = new PanelImagenes();
 		add(panelImagenes,0,0,1,1);
+		
 		panelNiños = new PanelNiños();
-		add(panelNiños,0,3,1,1);
+		add(panelNiños,0,1,1,1);
 		panelNiños.setVisible(false);
 		
 	}
@@ -236,20 +243,24 @@ public class PanelTres extends JPanel{
 					4, 4, 4, true);
 			this.setBorder(border);
 			
-			Font fuente = new Font("Lato Black", Font.PLAIN, 16);
+			Font fuente = new Font("Lato Black", Font.PLAIN, 18);
+			Color color = new Color(122,179,23);
 			
 			labelNiños = new JLabel("Edad de niños");
 			labelNiños.setFont(fuente);
+			labelNiños.setForeground(color);
 			constraints.insets = new Insets(4,20,4,0);
 			add(labelNiños,0,0,1,1);
 			
 			SpinnerNumberModel modelo2 = new SpinnerNumberModel(0,0,14,1);
 			spinnerEdad = new JSpinner(modelo2);
+			spinnerEdad.setForeground(color);
 			constraints.insets = new Insets(20,20,20,0);
 			add(spinnerEdad,1,0,1,1);
 			
 			TAextras = new JTextArea("Cuna",1,16);
 			TAextras.setFont(fuente);
+			TAextras.setForeground(color);
 			TAextras.setEditable(false);
 			constraints.insets = new Insets(20,20,20,10);
 			add(TAextras,0,1,2,2);
@@ -297,10 +308,12 @@ public class PanelTres extends JPanel{
 					4, 4, 4, true);
 			this.setBorder(border);
 
-			Font fuente = new Font("Lato Black", Font.PLAIN, 16);
+			Font fuente = new Font("Lato Black", Font.PLAIN, 18);
+			Color color = new Color(122,179,23);
 			
 			labelHabitacion = new JLabel("Habitación simple");
 			labelHabitacion.setFont(fuente);
+			labelHabitacion.setForeground(color);
 			constraints.insets = new Insets(4,20,4,10);
 			add(labelHabitacion,0,0,1,1);
 			

@@ -40,27 +40,27 @@ public class PanelCentro extends JPanel {
 		
 		label1 = new JLabel("Datos personales");
 		label1.setFont(fuente);
-		label1.setForeground(new Color(85,98,112));
-		constraints.insets = new Insets(10,40,0,0);
+		label1.setForeground(new Color(13,103,89));
+		constraints.insets = new Insets(20,40,0,0);
 		this.add(label1,0,0,1,1);
 		
 		panelDos = new PanelDos();
-		constraints.insets = new Insets(40,40,0,0);
-		this.add(panelDos, 0,0,1,1);
+		constraints.insets = new Insets(0,40,40,0);
+		this.add(panelDos, 0,1,1,1);
 		
 		label2 = new JLabel("Datos reserva");
 		label2.setFont(fuente);
-		label2.setForeground(new Color(85,98,112));
-		constraints.insets = new Insets(10,40,0,0);
-		this.add(label2,0,1,1,1);
+		label2.setForeground(new Color(122,179,23));
+		constraints.insets = new Insets(0,40,0,0);
+		this.add(label2,0,2,1,1);
 		
 		panelTres = new PanelTres();
-		constraints.insets = new Insets(40,40,100,0);
-		this.add(panelTres, 0,1,1,1);
+//		constraints.insets = new Insets(30,40,100,0);
+		this.add(panelTres, 0,3,2,1);
 		
 		panelCuatro = new PanelCuatro();
-		constraints.insets = new Insets(40,40,100,0);
-		this.add(panelCuatro,1,0,1,1);
+//		constraints.insets = new Insets(40,40,100,0);
+		this.add(panelCuatro,1,1,3,3);
 		
 	}
 	

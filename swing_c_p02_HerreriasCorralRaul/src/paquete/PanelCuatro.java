@@ -7,9 +7,9 @@ package paquete;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -64,8 +64,17 @@ public class PanelCuatro extends JPanel{
 		
 		public PanelInformacion() {
 			
-			infoCliente = new JTextArea(12,6);
+			Font fuente = new Font("Lato Black", Font.PLAIN, 20);
+			
+			infoCliente = new JTextArea(16,14);
+			infoCliente.setForeground(new Color(13,103,89));
+			infoCliente.setFont(fuente);
+			infoCliente.setEditable(false);
+			
 			infoHabitacion = new JTextArea(12,6);
+			infoHabitacion.setForeground(new Color(122,179,23));
+			infoHabitacion.setFont(fuente);
+			infoHabitacion.setEditable(false);
 			
 			addTab("       Información sobre el cliente       ", infoCliente);
 			addTab("       Información sobre la reserva       ", infoHabitacion);

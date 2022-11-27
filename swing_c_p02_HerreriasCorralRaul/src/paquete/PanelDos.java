@@ -49,31 +49,37 @@ public class PanelDos extends JPanel{
 		constraints = new GridBagConstraints();
 		this.setBackground(new Color(241,212,175));
 		
-		Border border = BorderFactory.createDashedBorder(Color.BLACK,
-						4, 4, 4, true);
+		Color colorBorder = new Color(160,197,95);
+		
+		Border border1 = BorderFactory.createBevelBorder(0, Color.BLACK, Color.WHITE);
+		Border border2 = BorderFactory.createDashedBorder(colorBorder, 
+				4, 50, 4, false);
+		
+		Border border = BorderFactory.createCompoundBorder(border1, border2);
+		
 		this.setBorder(border);
 		
-		Font fuente = new Font("Lato Black", Font.PLAIN, 16);
+		Font fuente = new Font("Lato Black", Font.PLAIN, 18);
 		
 		constraints.insets = new Insets(10,10,10,10);
 		
 		labelNombre = new JLabel("Nombre");
 		labelNombre.setFont(fuente);
-		labelNombre.setForeground(new Color(85,98,112));
+		labelNombre.setForeground(new Color(13,103,89));
 		this.add(labelNombre,0,0,1,1);
 		tfNombre = new JTextField("", 10);
 		this.add(tfNombre,1,0,1,1);
 		
 		labelApellidos = new JLabel("Apellidos");
 		labelApellidos.setFont(fuente);
-		labelApellidos.setForeground(new Color(85,98,112));
+		labelApellidos.setForeground(new Color(13,103,89));
 		this.add(labelApellidos, 0,1,1,1);
 		tfApellido = new JTextField("", 10);
 		this.add(tfApellido,1,1,1,1);
 		
 		labelDNI = new JLabel("DNI");
 		labelDNI.setFont(fuente);
-		labelDNI.setForeground(new Color(85,98,112));
+		labelDNI.setForeground(new Color(13,103,89));
 		this.add(labelDNI, 0,2,1,1);
 		try {
 			MaskFormatter mascaraDNI = new MaskFormatter("########U");
@@ -87,7 +93,7 @@ public class PanelDos extends JPanel{
 		
 		labelTelefono = new JLabel("Nº Telefono");
 		labelTelefono.setFont(fuente);
-		labelTelefono.setForeground(new Color(85,98,112));
+		labelTelefono.setForeground(new Color(13,103,89));
 		this.add(labelTelefono, 0,3,1,1);
 		try {
 			MaskFormatter mascaraTF = new MaskFormatter("#########");
@@ -101,21 +107,21 @@ public class PanelDos extends JPanel{
 		
 		labelFechaE = new JLabel("Fecha de entrada");
 		labelFechaE.setFont(fuente);
-		labelFechaE.setForeground(new Color(85,98,112));
+		labelFechaE.setForeground(new Color(13,103,89));
 		this.add(labelFechaE, 0,4,1,1);
 		tfFechaE = new JTextField();
 		this.add(tfFechaE, 1,4,1,1);
 		
 		labelFechaS = new JLabel("Fecha de salida");
 		labelFechaS.setFont(fuente);
-		labelFechaS.setForeground(new Color(85,98,112));
+		labelFechaS.setForeground(new Color(13,103,89));
 		this.add(labelFechaS, 4,0,1,1);
 		tfFechaS = new JTextField();
 		this.add(tfFechaS,5,0,1,1);
 		
 		labelDias = new JLabel("Dias de estancia");
 		labelDias.setFont(fuente);
-		labelDias.setForeground(new Color(85,98,112));
+		labelDias.setForeground(new Color(13,103,89));
 		this.add(labelDias, 4,1,1,1); 
 		
 		tfDias = new JTextField(2);

@@ -27,7 +27,7 @@ public class PanelUno extends JPanel {
 		this.setLayout(layout);
 		this.setBackground(new Color(236,229,206));
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 4, true);
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 6, true);
 		Color fondo = new Color(224, 142, 121);
 		
 		Font fuente = new Font("Lato Black", Font.PLAIN, 60);

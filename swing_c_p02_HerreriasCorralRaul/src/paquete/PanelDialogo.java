@@ -70,11 +70,9 @@ public class PanelDialogo extends JPanel implements FocusListener{
 		btnGuardar = panelInferior.btn3;
 		btnGuardar.addActionListener(e -> guardar());
 		
-		Border border1 = BorderFactory.createLineBorder(Color.RED, 4, true);
-		Border border3 = BorderFactory.createLineBorder(Color.BLUE, 4, true);
+		Border border1 = BorderFactory.createLineBorder(new Color(197,224,220), 8, false);
 		
 		panelCentro.setBorder(border1);
-		panelInferior.setBorder(border3);
 		
 		this.add(panelUno, BorderLayout.NORTH);
 		this.add(panelCentro, BorderLayout.CENTER);
